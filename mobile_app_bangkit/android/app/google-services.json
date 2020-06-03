@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "169977852128",
+    "firebase_url": "https://padi-d29fe.firebaseio.com",
+    "project_id": "padi-d29fe",
+    "storage_bucket": "padi-d29fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169977852128:android:55879917d576e552b2a085",
+        "android_client_info": {
+          "package_name": "com.example.mobile_app_bangkit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169977852128-7akn1ugfrk6l0p048l7otd9len19rqnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg3NVTTIG7ZQ_BoYTMNW7nVWUKZYTJnno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169977852128-7akn1ugfrk6l0p048l7otd9len19rqnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
