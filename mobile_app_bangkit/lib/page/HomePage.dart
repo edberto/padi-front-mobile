@@ -3,12 +3,14 @@ import 'package:flutter_svg/svg.dart';
 import './category_card.dart';
 import '../Screens/Welcome/welcome_screen.dart';
 import './ML/plant_detection.dart';
+import './ML2/plant_detector.dart';
+import './QnA/chatbox.dart';
+import 'package:mobile_app_bangkit/page/form.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context)
-        .size; //this gonna give us total height and with of our device
+    var size = MediaQuery.of(context).size; //this gonna give us total height and with of our device
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -16,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             // Here the height of the container is 45% of our total height
             height: size.height * .45,
             decoration: BoxDecoration(
-              color: Color(0xFF9CCC65),              
+              color: Colors.green[300], //Color(0xFF9CCC65)
             ),
           ),
           SafeArea(
@@ -29,19 +31,19 @@ class HomeScreen extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       onTap: () {
-                        // Navigator.of(context).pushReplacementNamed('/');
+                        Navigator.of(context).pushNamed('/chatbox');
                         print("Tap tap");
                       },
                       child: Container(
-                      alignment: Alignment.center,
-                      height: 52,
-                      width: 52,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF1F8E9),
-                        shape: BoxShape.circle,
+                        alignment: Alignment.center,
+                        height: 52,
+                        width: 52,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF1F8E9),
+                          shape: BoxShape.circle,
+                        ),
+                        child: SvgPicture.asset("assets/icons/question.svg"),
                       ),
-                      child: SvgPicture.asset("assets/icons/question.svg"),
-                    ),
                     ),
                   ),
                   Text(
@@ -52,7 +54,9 @@ class HomeScreen extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w900),
                   ),
                   // SearchBar(),
-                  SizedBox(height: size.height*0.1,),
+                  SizedBox(
+                    height: size.height * 0.1,
+                  ),
                   Expanded(
                     child: GridView.count(
                       crossAxisCount: 2,
@@ -65,13 +69,15 @@ class HomeScreen extends StatelessWidget {
                           svgSrc: "assets/icons/leaf.svg",
                           press: () {
                             print("HAHAHAH");
-                            Navigator.of(context).pushNamed('/ML');
+                            Navigator.of(context).pushNamed('/ML2');
                           },
                         ),
                         CategoryCard(
                           title: "Create Form",
                           svgSrc: "assets/icons/vegetable.svg",
-                          press: () {},
+                          press: () {
+                            Navigator.of(context).pushNamed('/form');
+                          },
                         ),
                         CategoryCard(
                           title: "History",

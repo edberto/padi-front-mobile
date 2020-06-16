@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobile_app_bangkit/Screens/Welcome/components/background.dart';
 import 'package:mobile_app_bangkit/constants.dart';
 import 'package:mobile_app_bangkit/login.dart';
+import '../../../Signup/signup_screen.dart';
 
 class Body extends StatelessWidget {
   
@@ -42,7 +43,9 @@ class Body extends StatelessWidget {
                 borderRadius: BorderRadius.circular(29),
                 child: FlatButton(
                 color: kPrimaryLightColor,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
                 child: Text("SIGN UP",          
                 ),
               ),

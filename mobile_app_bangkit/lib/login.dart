@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/svg.dart';
 import './page/HomePage.dart';
+import './Signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -170,14 +172,11 @@ class WidgetFormLogin extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty ||
-            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+            !RegExp(r"^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
                 .hasMatch(value)) {
-          return 'Please enter a valid email';
+          return 'Please enter a valid username';
         }
       },
-      // onSaved: (String value) {
-      //   _formData['email'] = value;
-      // },
     );
   }
 
@@ -329,6 +328,9 @@ class WidgetSignUp extends StatelessWidget {
               ),
               TextSpan(
                 text: 'Sign up here',
+                recognizer: new TapGestureRecognizer()..onTap = () {
+                  Navigator.pushNamed(context, '/signup');
+                },
                 style: Theme.of(context).textTheme.caption.merge(
                   TextStyle(
                     color: Color(0xFF6C63FF),

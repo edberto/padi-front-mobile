@@ -39,6 +39,9 @@ dependencies:
   tflite: ^1.0.6
   percent_indicator: ^2.1.1+1
   camera: ^0.5.7+4
+  scoped_model: ^1.0.1
+  firebase_storage: ^3.0.3
+  firebase_core: ^0.4.5
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +62,10 @@ flutter:
   assets:
      - assets/images/
      - assets/icons/
-     - assets/models/plant_disease_model.tflite
-     - assets/models/plant_labels.txt
+    #  - assets/models/plant_disease_model.tflite
+     - assets/models/padi.tflite
+    #  - assets/models/plant_labels.txt
+     - assets/models/padi_labels.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
