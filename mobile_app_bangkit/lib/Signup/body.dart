@@ -2,20 +2,40 @@ import 'package:flutter/material.dart';
 import '../login.dart';
 import './background.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  final Function signup;
+  Body(this.signup);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _BodyState();
+  }
+}
+
+class _BodyState extends State<Body> {
   final focusNodePassword = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _formData = {
-    'user' : null,
-    'password' : null
-  };
+  final Map<String, dynamic> _formData = {'user': null, 'password': null};
+  final Map<String, dynamic> result2 = {};
+  String temp;
+  bool textField;
+  bool passField;
+
+  void initState() {
+    temp = 'Authentication succeeded!';
+    textField = true;
+    passField = false;
+    super.initState();
+  }
 
   Widget _buildEmailTextField() {
+    textField = true;
     return TextFormField(
       decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'Email Address / Username',
+          labelText: 'Username',
           contentPadding: EdgeInsets.all(16.0),
           filled: true),
       keyboardType: TextInputType.emailAddress,
@@ -23,9 +43,9 @@ class Body extends StatelessWidget {
         if (value.isEmpty ||
             !RegExp(r"^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
                 .hasMatch(value)) {
+          textField = false;
           return 'Please enter a valid username';
         }
-      
       },
       onSaved: (String value) {
         _formData['user'] = value;
@@ -34,6 +54,7 @@ class Body extends StatelessWidget {
   }
 
   Widget _buildPasswordTextField() {
+    passField = true;
     return TextFormField(
       decoration: InputDecoration(
           border: OutlineInputBorder(),
@@ -43,6 +64,7 @@ class Body extends StatelessWidget {
       obscureText: true,
       validator: (String value) {
         if (value.isEmpty || value.length < 6) {
+          textField = false;
           return 'Password invalid';
         }
       },
@@ -52,21 +74,19 @@ class Body extends StatelessWidget {
     );
   }
 
-  void _submitForm(BuildContext context) {
+  void _submitForm(BuildContext context) async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    print(_formData);
-    // Navigator.pushReplacementNamed(context, '/HomePage');
+    await foo(_formData['user'], _formData['password'], "Signup");
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-      child: SingleChildScrollView(
-          child: Container(
+      child: Container(
         child: Form(
             key: _formKey,
             child: Padding(
@@ -80,10 +100,10 @@ class Body extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: size.height * 0.03),
-                  SvgPicture.asset(
-                    "assets/icons/farmer.svg",
-                    height: size.height * 0.15,
-                  ),
+                  // SvgPicture.asset(
+                  //   "assets/icons/farmer.svg",
+                  //   height: size.height * 0.15,
+                  // ),
                   _buildEmailTextField(),
                   SizedBox(height: size.height * 0.01),
                   _buildPasswordTextField(),
@@ -93,7 +113,7 @@ class Body extends StatelessWidget {
                     child: RaisedButton(
                         shape: StadiumBorder(),
                         child: Text(
-                          'SIGN UP',
+                          'SUBMIT',
                           style: TextStyle(
                             color: Colors.black,
                             // fontFamily: 'NanumGothic',
@@ -101,15 +121,70 @@ class Body extends StatelessWidget {
                           ),
                         ),
                         color: Color(0xFFCCFF90),
-                        onPressed: () {
-                          _submitForm(context);
+                        onPressed: () async {
+                          await _submitForm(context);
+                          textField == false || passField == false
+                              ? Container()
+                              : Future.delayed(
+                                  const Duration(milliseconds: 2500), () {
+                                  setState(() {
+                                    // Here you can write your code for open new view
+                                    dialogAlert(context);
+                                  });
+                                });
                         }),
                   ),
-                  // SizedBox(height: size.height * 0.03),
                 ],
               ),
             )),
-      )),
+      ),
     );
+  }
+
+  void foo(String user, String password, String title) async {
+    widget.signup(user, password, title).then((result) {
+      setState(() {
+        temp = result['message'];
+        print(temp);
+      });
+    });
+  }
+
+  Future<bool> dialogAlert(BuildContext context) async {
+    if (temp != 'Authentication succeeded!') {
+      return Alert(
+        context: context,
+        type: AlertType.error,
+        title: "This user is already exist !",
+        desc: "Please fill with another username, make sure you make it unique",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "BACK",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+          )
+        ],
+      ).show();
+    } else if (temp == 'Authentication succeeded!') {
+      return Alert(
+        context: context,
+        type: AlertType.success,
+        title: "Success!",
+        desc: "You can go back to login page, and try PADI. Enjoy!",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "BACK",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            width: 120,
+          )
+        ],
+      ).show();
+    }
   }
 }

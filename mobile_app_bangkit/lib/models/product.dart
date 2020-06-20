@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+
 class Product {
-  final String id;
-  final String title;
-  final String description;
-  final String userId;
-  final String detection;
+  final int prediction;
+  final String label;
   final String imagePath;
+  final int userID;
+  final String updatedAt;
 
-
-  Product(
-      {@required this.id,
-      @required this.title,
-      @required this.description,
-      @required this.userId,
-      @required this.detection,
-      this.imagePath = null
-      });
+  Product({
+    @required this.prediction,
+    @required this.label,
+    @required this.imagePath,
+    @required this.userID,
+    @required this.updatedAt,
+  });
 }

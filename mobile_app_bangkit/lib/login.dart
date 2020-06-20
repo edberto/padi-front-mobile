@@ -4,8 +4,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/svg.dart';
 import './page/HomePage.dart';
 import './Signup/signup_screen.dart';
+import './models/main.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import './Screens/Welcome/components/background.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  final MainModel model;
+
+  LoginScreen(this.model);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _LoginScreen();
+  }
+}
+
+class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,21 +27,30 @@ class LoginScreen extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
                 child: ListView(
+                  padding: EdgeInsets.fromLTRB(
+                      0, MediaQuery.of(context).size.width * 0.5, 0, 0),
                   children: <Widget>[
-                    WidgetIconBiking(),
-                    WidgetLabelContinueWith(),
-                    WidgetLoginViaSocialMedia(),
+                    // WidgetIconBiking(),
+                    // WidgetLabelContinueWith(),
+                    // WidgetLoginViaSocialMedia(),
                     WidgetLabelSignInWithEmail(),
-                    WidgetFormLogin(),
+                    WidgetFormLogin(widget.model.authenticate),
                     WidgetResetPasswordButton(),
                   ],
                 ),
               ),
-              WidgetSignUp(),
+              // WidgetSignUp(),
             ],
+          ),
+          Positioned(
+            top: -20,
+            right: -70,
+            child: Image.asset('assets/images/sun.png'),
+            width: MediaQuery.of(context).size.width * 0.5,
           ),
         ],
       ),
@@ -48,24 +71,11 @@ class WidgetIconBiking extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Center(
-            child: SvgPicture.asset("assets/icons/rice_2.svg",
-            height: mediaQuery.size.height*0.2,
+            child: SvgPicture.asset(
+              "assets/icons/rice_2.svg",
+              height: mediaQuery.size.height * 0.2,
             ),
-              
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0),
-          //   child: Center(
-          //     child: Text(
-          //       'PADI App',
-          //       style: TextStyle(
-          //         fontSize: 24.0,
-          //         // fontFamily: 'NanumGothic',
-          //         color: Colors.black54,
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -151,24 +161,40 @@ class WidgetLabelSignInWithEmail extends StatelessWidget {
       padding: const EdgeInsets.only(top: 28.0),
       child: Center(
         child: Text(
-          'Or sign in with email', style: TextStyle(color: Colors.black54,),),
+          'sign in username',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
+        ),
       ),
     );
   }
 }
 
-class WidgetFormLogin extends StatelessWidget {
+class WidgetFormLogin extends StatefulWidget {
+  final Function login;
+
+  WidgetFormLogin(this.login);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _WidgetFormLogin();
+  }
+}
+
+class _WidgetFormLogin extends State<WidgetFormLogin> {
+  String result;
   final focusNodePassword = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _formData = {'user': null, 'password': null};
 
   Widget _buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Email Address / Username',
-              contentPadding: EdgeInsets.all(16.0),
-              filled: true
-          ),
+          border: OutlineInputBorder(),
+          labelText: 'Username',
+          contentPadding: EdgeInsets.all(16.0),
+          filled: true),
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty ||
@@ -177,39 +203,75 @@ class WidgetFormLogin extends StatelessWidget {
           return 'Please enter a valid username';
         }
       },
+      onSaved: (String value) {
+        _formData['user'] = value;
+      },
     );
   }
 
   Widget _buildPasswordTextField() {
     return TextFormField(
       decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-              contentPadding: EdgeInsets.all(16.0),
-              filled: true
-            ),
+          border: OutlineInputBorder(),
+          labelText: 'Password',
+          contentPadding: EdgeInsets.all(16.0),
+          filled: true),
       obscureText: true,
       validator: (String value) {
         if (value.isEmpty || value.length < 6) {
           return 'Password invalid';
         }
-      
       },
-      // onSaved: (String value) {
-      //   _formData['password'] = value;
-      // },
+      onSaved: (String value) {
+        _formData['password'] = value;
+      },
     );
   }
 
-void _submitForm(BuildContext context) {
+  Future<Null> foo(
+      String user, String password, String title, BuildContext context) async {
+    Map<String, dynamic> tempResult;
+    widget.login(user, password, title).then((result) {
+      tempResult = result;
+      setState(() {
+        result = result['message'];
+        if (result == 'Authentication succeeded!') {
+          print("aaaaaa");
+          Navigator.pushReplacementNamed(context, '/HomePage');
+        } else {
+          alertDialog(context);
+        }
+        print(result);
+      });
+    });
+  }
+
+  void _submitForm(BuildContext context) {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    Navigator.pushReplacementNamed(context, '/HomePage');
-    
+    foo(_formData['user'], _formData['password'], "Login", context);
+  }
 
-    // Navigator.pushReplacementNamed(context, '/products');
+  Future<bool> alertDialog(BuildContext context) async {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "This user is not found !",
+      desc: "Please check your username and password",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "BACK",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+        )
+      ],
+    ).show();
+    // : Container();
   }
 
   @override
@@ -222,54 +284,25 @@ void _submitForm(BuildContext context) {
           padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
           child: Column(
             children: <Widget>[
-              // Navigator.pushNamed(context, '/HomePage');
-              // TextField(
-              //   decoration: InputDecoration(
-              //     border: OutlineInputBorder(),
-              //     labelText: 'Email Address / Username',
-              //     contentPadding: EdgeInsets.all(16.0),
-              //   ),
-              //   keyboardType: TextInputType.emailAddress,
-              //   textInputAction: TextInputAction.next,
-              //   onSubmitted: (username) {
-              //     FocusScope.of(context).requestFocus(focusNodePassword);
-              //   },
-              // ),
               _buildEmailTextField(),
               SizedBox(height: 16.0),
-              // TextField(
-              //   focusNode: focusNodePassword,
-              //   decoration: InputDecoration(
-              //     border: OutlineInputBorder(),
-              //     labelText: 'Password',
-              //     contentPadding: EdgeInsets.all(16.0),
-              //   ),
-              //   keyboardType: TextInputType.text,
-              //   obscureText: true,
-              //   textInputAction: TextInputAction.done,
-              //   onSubmitted: (password) {
-              //     focusNodePassword.unfocus();
-              //     // TODO: do something in here when password onSubmitted
-              //   },
-              // ),
               _buildPasswordTextField(),
               SizedBox(height: 16.0),
               SizedBox(
                 width: double.infinity,
                 child: RaisedButton(
-                  child: Text(
-                    'LOG IN',
-                    style: TextStyle(
-                      color: Colors.black,
-                      // fontFamily: 'NanumGothic',
-                      fontWeight: FontWeight.bold,
+                    child: Text(
+                      'LOG IN',
+                      style: TextStyle(
+                        color: Colors.black,
+                        // fontFamily: 'NanumGothic',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  color: Color(0xFFCCFF90),
-                  onPressed: () {
-                    _submitForm(context);
-                  }
-                ),
+                    color: Color(0xFFCCFF90),
+                    onPressed: () {
+                      _submitForm(context);
+                    }),
               ),
             ],
           ),
@@ -289,15 +322,15 @@ class WidgetResetPasswordButton extends StatelessWidget {
           Center(
             child: FlatButton(
               child: Text(
-                'RESET PASSWORD',
+                'SIGN UP',
                 style: TextStyle(
                   color: Color(0xFF6C63FF),
                   // fontFamily: 'NanumGothic',
                 ),
               ),
               onPressed: () {
+                Navigator.pushNamed(context, '/signup');
                 /* Nothing to do in here */
-                
               },
             ),
           ),
@@ -316,7 +349,7 @@ class WidgetSignUp extends StatelessWidget {
         left: 16.0,
         right: 16.0,
         bottom:
-        mediaQuery.padding.bottom > 0 ? mediaQuery.padding.bottom : 16.0,
+            mediaQuery.padding.bottom > 0 ? mediaQuery.padding.bottom : 16.0,
       ),
       child: Center(
         child: RichText(
@@ -328,14 +361,15 @@ class WidgetSignUp extends StatelessWidget {
               ),
               TextSpan(
                 text: 'Sign up here',
-                recognizer: new TapGestureRecognizer()..onTap = () {
-                  Navigator.pushNamed(context, '/signup');
-                },
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.pushNamed(context, '/signup');
+                  },
                 style: Theme.of(context).textTheme.caption.merge(
-                  TextStyle(
-                    color: Color(0xFF6C63FF),
-                  ),
-                ),
+                      TextStyle(
+                        color: Color(0xFF6C63FF),
+                      ),
+                    ),
               ),
             ],
           ),
