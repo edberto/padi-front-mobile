@@ -70,13 +70,13 @@ class _HomeScreen extends State<HomeScreen> {
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.1),
                       Text(
-                        "Hello, ${widget.model.user.id} !",
+                        "Halo, ${widget.model.user.id} !",
                         style: Theme.of(context)
                             .textTheme
                             .display1
                             .copyWith(fontWeight: FontWeight.w900),
                       ),
-                      Text('it\'s AI time !'),
+                      Text('Ayo coba aplikasi kecerdasan buatan !'),
                       // SearchBar(),
                       SizedBox(
                         height: size.height * 0.05,
@@ -89,14 +89,14 @@ class _HomeScreen extends State<HomeScreen> {
                           mainAxisSpacing: 20,
                           children: <Widget>[
                             CategoryCard(
-                              title: "Leaf Detector",
+                              title: "Pendeteksi Tanaman",
                               svgSrc: "assets/icons/leaf.svg",
                               press: () {
                                 Navigator.of(context).pushNamed('/ML2');
                               },
                             ),
                             CategoryCard(
-                              title: "History",
+                              title: "Riwayat",
                               svgSrc: "assets/icons/doctor.svg",
                               press: () {
                                 Navigator.of(context)
@@ -104,7 +104,7 @@ class _HomeScreen extends State<HomeScreen> {
                               },
                             ),
                             CategoryCard(
-                              title: "QnA",
+                              title: "Pertanyaan",
                               svgSrc: "assets/icons/question.svg",
                               press: () {
                                 // print(widget.model.allProducts.length);
@@ -112,7 +112,7 @@ class _HomeScreen extends State<HomeScreen> {
                               },
                             ),
                             CategoryCard(
-                              title: "Log out",
+                              title: "Keluar",
                               svgSrc: "assets/icons/exit.svg",
                               press: () {
                                 Navigator.of(context).pushReplacementNamed('/');

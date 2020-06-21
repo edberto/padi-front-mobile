@@ -161,7 +161,7 @@ class WidgetLabelSignInWithEmail extends StatelessWidget {
       padding: const EdgeInsets.only(top: 28.0),
       child: Center(
         child: Text(
-          'sign in username',
+          'Masukan Username dan Password',
           style: TextStyle(
             color: Colors.black54,
           ),
@@ -258,12 +258,12 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
     Alert(
       context: context,
       type: AlertType.error,
-      title: "This user is not found !",
-      desc: "Please check your username and password",
+      title: "User ini tidak ditemukan !",
+      desc: "Mohon periksa Username / Password anda",
       buttons: [
         DialogButton(
           child: Text(
-            "BACK",
+            "KEMBALI",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () => Navigator.pop(context),
@@ -292,7 +292,7 @@ class _WidgetFormLogin extends State<WidgetFormLogin> {
                 width: double.infinity,
                 child: RaisedButton(
                     child: Text(
-                      'LOG IN',
+                      'MASUK',
                       style: TextStyle(
                         color: Colors.black,
                         // fontFamily: 'NanumGothic',
@@ -322,7 +322,7 @@ class WidgetResetPasswordButton extends StatelessWidget {
           Center(
             child: FlatButton(
               child: Text(
-                'SIGN UP',
+                'DAFTAR',
                 style: TextStyle(
                   color: Color(0xFF6C63FF),
                   // fontFamily: 'NanumGothic',

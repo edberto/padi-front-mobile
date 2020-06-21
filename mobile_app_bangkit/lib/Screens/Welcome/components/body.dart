@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Welcome to PADI"
+              "Selamat datang di PADI"
             ),
             SizedBox(height: size.height*0.01,),
             SvgPicture.asset("assets/icons/rice.svg",
@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
                 },
-                child: Text("LOGIN",          
+                child: Text("MASUK",          
                 ),
               ),
               ),
@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/signup');
                 },
-                child: Text("SIGN UP",          
+                child: Text("DAFTAR",          
                 ),
               ),
               ),

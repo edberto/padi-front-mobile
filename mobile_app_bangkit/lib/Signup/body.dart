@@ -96,7 +96,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "SIGN UP",
+                    "DAFTAR",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: size.height * 0.03),
@@ -113,7 +113,7 @@ class _BodyState extends State<Body> {
                     child: RaisedButton(
                         shape: StadiumBorder(),
                         child: Text(
-                          'SUBMIT',
+                          'KIRIM',
                           style: TextStyle(
                             color: Colors.black,
                             // fontFamily: 'NanumGothic',
@@ -155,12 +155,12 @@ class _BodyState extends State<Body> {
       return Alert(
         context: context,
         type: AlertType.error,
-        title: "This user is already exist !",
-        desc: "Please fill with another username, make sure you make it unique",
+        title: "User ini sudah terdaftar !",
+        desc: "Tolong buat username unik kembali",
         buttons: [
           DialogButton(
             child: Text(
-              "BACK",
+              "KEMBALI",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),
@@ -172,12 +172,12 @@ class _BodyState extends State<Body> {
       return Alert(
         context: context,
         type: AlertType.success,
-        title: "Success!",
-        desc: "You can go back to login page, and try PADI. Enjoy!",
+        title: "SUKSES!",
+        desc: "Kamu bisa kembali ke halaman masuk, dan menikmati PADI!",
         buttons: [
           DialogButton(
             child: Text(
-              "BACK",
+              "KEMBALI",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () => Navigator.pop(context),

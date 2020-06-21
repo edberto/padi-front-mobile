@@ -84,14 +84,14 @@ class _MyProductListState extends State<MyProductList> {
                       child: new ListTile(
                         
                         title: new Text(
-                          "AI Detector Result",
+                          "Riwayat Kecerdasan Buatan",
                           style: new TextStyle(
                               color: Colors.white,
                               fontSize: 24.0,
                               letterSpacing: 2.0),
                         ),
                         subtitle: new Text(
-                          "Hope you satisfied !",
+                          "Semoga kamu senang !",
                           style: new TextStyle(
                               color: Colors.white,
                               fontSize: 12.0,

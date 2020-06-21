@@ -54,45 +54,45 @@ class _ChatboxState extends State<Chatbox> {
           Bubble(
             style: styleSomebody,
             child: Text(
-                'What is the use of PADI application?',
+                'Apa kegunaan aplikasi PADI?',
                 style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleMe,
-            child: Text('This application is embedded with artificial intelligence that can help to detect the condition of rice plants', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Aplikasi ini digunakan untuk mengetahui kondisi tanaman padi dengan bantuan kecerdasan buatan', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleSomebody,
-            child: Text('How to use this app?',
+            child: Text('Bagaimana cara menggunakan aplikasi ini?',
                 style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleMe,
-            child: Text('You can take the leaf image from your galerry or camera', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Kamu bisa memilih gambar dari kamera atau galeri dan melakukan pendeksian cepat.', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleSomebody,
             margin: BubbleEdges.only(top: 2.0),
             nip: BubbleNip.no,
-            child: Text('Is this application paid?', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Apakah aplikasi ini berbayar?', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleMe,
             nip: BubbleNip.no,
             margin: BubbleEdges.only(top: 2.0),
-            child: Text('No, It is totally free !', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Tidak, ini sepenuhnya gratis !', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleSomebody,
             margin: BubbleEdges.only(top: 2.0),
             nip: BubbleNip.no,
-            child: Text('Does the AI depend on internet connection?', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Apakah memerlukan koneksi internet?', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
           Bubble(
             style: styleMe,
             nip: BubbleNip.no,
             margin: BubbleEdges.only(top: 2.0),
-            child: Text('No, you can use it without internet connection for clasify your image', style: TextStyle(fontSize: 12, color: Colors.black)),
+            child: Text('Ya, karena riwayat pendeksian akan disimpan di server yang aman', style: TextStyle(fontSize: 12, color: Colors.black)),
           ),
         ],
       ),

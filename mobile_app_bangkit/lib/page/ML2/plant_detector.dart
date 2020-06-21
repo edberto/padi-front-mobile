@@ -155,12 +155,12 @@ bool isSaved;
     Alert(
       context: context,
       type: AlertType.success,
-      title: "Model saved!",
-      desc: "Your model histories can be found in history section. Enjoy !",
+      title: "Hasil disimpan!",
+      desc: "Hasil dari pendeteksian sudah kami simpan dengan aman !",
       buttons: [
         DialogButton(
           child: Text(
-            "BACK",
+            "KEMBALI",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () => Navigator.pop(context),
@@ -209,13 +209,13 @@ bool isSaved;
       columns: const <DataColumn>[
         DataColumn(
           label: Text(
-            'Index',
+            'Konteks',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
         DataColumn(
           label: Text(
-            'Value',
+            'Hasil',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
@@ -229,13 +229,13 @@ bool isSaved;
         ),
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Description')),
+            DataCell(Text('Deskripsi')),
             DataCell(Text(hasilPrediksiModel['description'])),
           ],
         ),
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Effect')),
+            DataCell(Text('Efek')),
             DataCell(Text(hasilPrediksiModel['effect'])),
           ],
         ),
@@ -300,7 +300,7 @@ bool isSaved;
                   SizedBox(
                     height: size.height * 0.1,
                   ),
-                  Text('No image selected.')
+                  Text('Belum ada gambar.')
                 ],
               ),
             )
@@ -309,7 +309,7 @@ bool isSaved;
           margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
           child: RaisedButton(
             onPressed: () => getImageFromCamera(),
-            child: Text('Click Here To Select Image From Camera'),
+            child: Text('Pilih Gambar Dari Kamera'),
             textColor: Colors.black,
             color: Colors.green[500],
             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -318,7 +318,7 @@ bool isSaved;
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: RaisedButton(
             onPressed: () => getImageFromGallery(),
-            child: Text('Click Here To Select Image From Gallery'),
+            child: Text('Pilih Gambar Dari Galeri'),
             textColor: Colors.black,
             color: Colors.green[500],
             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -334,7 +334,7 @@ bool isSaved;
                     classifyImage();
                   }
                 }, // classifyImage(),
-                child: Text('Classify Image'),
+                child: Text('Mulai Deteksi'),
                 textColor: Colors.black,
                 color: Colors.green[500],
                 padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
